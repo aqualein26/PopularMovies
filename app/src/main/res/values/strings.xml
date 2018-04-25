@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="error_message">An error has occurred.</string>
+    <string name="no_internet_connection">No internet connection.Close app?</string>
+    <string name="positive_button">YES</string>
+    <string name="negative_button">NO</string>
+    <string name="sort_by_popularity">Most popular</string>
+    <string name="sort_by_favourite">Your favourites</string>
+    <string name="sort_by_top_rated">Top rated</string>
+    <string name="out_of_ten"> /10 </string>
+    <string name="exit">Do you want to exit?</string>
+    <string name="exit_activity">Exiting the activity..</string>
+    <string name="connection_check"> Make sure you are connected to the internet</string>
+    <string name="trailers_title">Trailers:</string>
+    <string name="trailer1">Trailer 1</string>
+    <string name="trailer2">Trailer 2</string>
+    <string name="trailer3">Trailer 3</string>
+    <string name="favourite_title">Mark as Favourite</string>
+    <string name="movie_saved_toast">Movie marked as favourite!</string>
+
+
+</resources>
