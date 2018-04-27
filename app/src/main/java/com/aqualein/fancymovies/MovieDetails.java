@@ -82,7 +82,7 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
 
             date.setText(currentMovie.getmReleaseDate());
 
-            movieFinalUri = Uri.parse(trailerBaseUri).buildUpon().appendPath(movieId).appendPath("videos").appendQueryParameter("api_key", "ebd331efd1f9bec67a9aa215b256ebe1")
+            movieFinalUri = Uri.parse(trailerBaseUri).buildUpon().appendPath(movieId).appendPath("videos").appendQueryParameter("api_key", "API_KEY")
                     .appendQueryParameter("language", "en").build();
 
             Picasso.with(getApplicationContext())
@@ -97,7 +97,7 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
             task.execute(movieFinalUri.toString());
 
 
-            movieReviewUri = Uri.parse(trailerBaseUri).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter("api_key", "ebd331efd1f9bec67a9aa215b256ebe1")
+            movieReviewUri = Uri.parse(trailerBaseUri).buildUpon().appendPath(movieId).appendPath("reviews").appendQueryParameter("api_key", "API_KEY")
                     .appendQueryParameter("language", "en").build();
             ReviewDownloadTask task1 = new ReviewDownloadTask();
             task1.execute(movieReviewUri.toString());
