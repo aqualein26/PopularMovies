@@ -34,9 +34,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements CustomCursorAdapter.CustomCursorAdapterOnClickHandler, ImagesAdapter.ImagesAdapterOnClickHandler, LoaderManager.LoaderCallbacks<Cursor> {
 
     final String TAG = MainActivity.class.getSimpleName();
-    private final String POPULAR_WEBSITE = "https://api.themoviedb.org/3/movie/popular?api_key=3e60cca493d6bc6d4fc9dbda4c4ea407";
-    //  private final String RATED_WEBSITE = "https://api.themoviedb.org/3/movie/top_rated?api_key=ebd331efd1f9bec67a9aa215b256ebe1";
-    private final String RATED_WEBSITE = "https://api.themoviedb.org/3/movie/top_rated?api_key=3e60cca493d6bc6d4fc9dbda4c4ea407";
+    private final String POPULAR_WEBSITE = "https://api.themoviedb.org/3/movie/popular?API_KEY";
+ 
+    private final String RATED_WEBSITE = "https://api.themoviedb.org/3/movie/top_rated?API_KEY";
     ImagesAdapter adapter;
     TextView errorTextView;
     ProgressBar progressBar;
