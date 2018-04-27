@@ -1,46 +1,26 @@
-
-
 package com.aqualein.fancymovies.Utilities;
-
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-/** Utility to query the network and get the data.
+/**
+ * Utility to query the network and get the data.
  * Created by sandy on 28-Jun-17.
  */
 
 public class NetworkUtility {
 
-    /*public static boolean isOnline() {
-        try {
-            int timeoutMs = 1500;
 
-            Socket sock = new Socket();
 
-            SocketAddress sockaddr = new InetSocketAddress("8.8.8.8", 53);
-
-            sock.connect(sockaddr, timeoutMs);
-            sock.close();
-
-            return true;
-        } catch (IOException e) { return false; }
-    }*/
-
-    public static boolean isOnline() throws InterruptedException, IOException
-    {
+    public static boolean isOnline() throws InterruptedException, IOException {
         String command = "ping -c 1 google.com";
 
-        return (Runtime.getRuntime().exec (command).waitFor() == 0);
+        return (Runtime.getRuntime().exec(command).waitFor() == 0);
     }
 
     public static String makeHttpRequest(String website) throws IOException {
@@ -59,14 +39,13 @@ public class NetworkUtility {
         } catch (Exception e) {
 
             e.printStackTrace();
-        }
-        finally {
+        } finally {
 
-            if(in != null) {
+            if (in != null) {
 
                 urlConnection.disconnect();
             }
-            if(in != null) {
+            if (in != null) {
 
 
                 in.close();
@@ -96,7 +75,6 @@ public class NetworkUtility {
         return new URL(website);
 
     }
-
 
 
 }

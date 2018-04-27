@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -88,7 +89,7 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
                     .load(builder.toString())
                     .placeholder(R.drawable.popcorn_placeholder)
                     .error(R.drawable.error)
-                    .resize(800, 1000)
+                    .resize(600, 1000)
                     .into(imageView);
 
             movieTrailersList = new ArrayList<>();
@@ -102,7 +103,6 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
             task1.execute(movieReviewUri.toString());
 
 
-            //  String movieReviewsExtra = getIntent().getStringExtra("movieReviewList");
 
 
         }
@@ -123,10 +123,7 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MovieDetails.this, ReviewActivity.class);
                 intent.putExtra("movieReviewList", movieReviewsList);
                 startActivity(intent);
-           /* case R.id.trailer3:
 
-                openTrailer(movieTrailersList.get(2).getKey());
-                break;*/
 
         }
     }
@@ -138,22 +135,9 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(uri);
-        startActivity(intent);
 
-
-    }
-
-    public void openReview(String url) {
-
-
-        Uri uri = Uri.parse(url);
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        if(intent.resolveActivity(getPackageManager())!=null) {
-            intent.setData(uri);
+        if (intent.resolveActivity(getPackageManager()) != null)
             startActivity(intent);
-        }else
-            Toast.makeText(this, "Unable to find browser to launch movie trailer!", Toast.LENGTH_SHORT).show();
 
 
     }
@@ -166,19 +150,17 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
         contentValues.put(FavouritesContractClass.FavouriteMovies.MOVIE_URL, builder.toString());
         contentValues.put(FavouritesContractClass.FavouriteMovies.MOVIE_ID, movieId);
 
-        /*if(checkAlreadyExist()){
-            Toast.makeText(getApplicationContext(), "Already Exist!", Toast.LENGTH_SHORT).show();
-        } else {*/
+        Uri uri = getContentResolver().insert(FavouritesContractClass.FavouriteMovies.CONTENT_URI, contentValues);
 
-            Uri uri = getContentResolver().insert(FavouritesContractClass.FavouriteMovies.CONTENT_URI, contentValues);
+        if (uri != null) {
+            Toast.makeText(this, R.string.movie_saved_toast, Toast.LENGTH_SHORT).show();
 
-            if (uri != null) {
-                Toast.makeText(this, R.string.movie_saved_toast, Toast.LENGTH_SHORT).show();
-                Log.i("insert successsful", uri.toString());
-            } else
-                Log.i("insert not successsful", "suc");
+        } else
+            Log.i("insert not successsful", "suc");
 
     }
+
+
 
     class DownloadTask extends AsyncTask<String, Void, ArrayList<MovieTrailerClass>> {
 
@@ -243,15 +225,28 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
 
                 textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 textView.setGravity((Gravity.CENTER));
+                textView.setPadding(8,8,8,8);
                 linearLayout.addView(textView);
+                textView.setTextColor(getResources().getColor(android.R.color.black));
                 textView.setText(movieReviewObject.getContent());
 
 
                 TextView textView1 = new TextView(getApplicationContext());
                 textView1.setGravity((Gravity.CENTER));
+                textView1.setTextColor(getResources().getColor(android.R.color.black));
+                textView1.setPadding(8,8,8,24);
                 textView1.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 linearLayout.addView(textView1);
                 textView1.setText(movieReviewObject.getAuthor());
+
+                View v = new View(getApplicationContext());
+                v.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        5
+                ));
+                v.setBackgroundColor(Color.parseColor("#000000"));
+
+                linearLayout.addView(v);
             }
 
         }
@@ -282,27 +277,6 @@ public class MovieDetails extends AppCompatActivity implements View.OnClickListe
             return movieReviewsList;
 
         }
-    }
-
-
-    public boolean checkAlreadyExist()
-    {
-
-        String query =  "SELECT " + FavouritesContractClass.FavouriteMovies.MOVIE_ID + " FROM " + FavouritesContractClass.FavouriteMovies.TABLE_NAME + " WHERE " + FavouritesContractClass.FavouriteMovies.MOVIE_ID + " = " + movieId;;
-
-        MovieDbOpenHelper  dbOpenHelper = new MovieDbOpenHelper(getApplicationContext(),null,null,1);
-
-
-        SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        Log.i(" ai mger","here");
-        if (cursor.getCount() > 0)
-        {
-            Log.i("fpund","funf");
-            return true;
-        }
-        else
-            return false;
     }
 
 

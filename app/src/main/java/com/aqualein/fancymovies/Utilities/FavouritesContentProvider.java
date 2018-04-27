@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -19,26 +18,29 @@ import android.widget.Toast;
 
 public class FavouritesContentProvider extends ContentProvider {
 
+
     public static final int MOVIES = 100;
-    public static final int  MOVIE_ID = 101;
-    private MovieDbOpenHelper dbOpenHelper;
+    public static final int MOVIE_ID = 101;
+    private static final String DATABASE_NAME = "favourites.db";
+    private static final String VERSION = "1";
+    public UriMatcher sUriMatcher = buildUriMatcher();
     Cursor cursor;
+    private MovieDbOpenHelper dbOpenHelper;
+
     @Override
     public boolean onCreate() {
         Context context = getContext();
-        dbOpenHelper = new MovieDbOpenHelper(context,null,null,1);
+        dbOpenHelper = new MovieDbOpenHelper(context, DATABASE_NAME, null, 1);
         return true;
     }
-
-    public UriMatcher sUriMatcher = buildUriMatcher();
 
     private UriMatcher buildUriMatcher() {
 
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(FavouritesContractClass.AUTHORITY,FavouritesContractClass.PATH_FAVOURITES,MOVIES);
-        uriMatcher.addURI(FavouritesContractClass.AUTHORITY,FavouritesContractClass.PATH_FAVOURITES + "/#",MOVIE_ID);
+        uriMatcher.addURI(FavouritesContractClass.AUTHORITY, FavouritesContractClass.PATH_FAVOURITES, MOVIES);
+        uriMatcher.addURI(FavouritesContractClass.AUTHORITY, FavouritesContractClass.PATH_FAVOURITES + "/#", MOVIE_ID);
 
-return uriMatcher;
+        return uriMatcher;
     }
 
     @Nullable
@@ -66,7 +68,7 @@ return uriMatcher;
 
         }
 
-        cursor.setNotificationUri(getContext().getContentResolver(),uri);
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
 
@@ -93,10 +95,10 @@ return uriMatcher;
 
         SQLiteDatabase sqLiteDatabase = dbOpenHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
-Uri returnUri = null;
+        Uri returnUri = null;
         switch (match) {
             case MOVIES:
-                long id = sqLiteDatabase.insertWithOnConflict(FavouritesContractClass.FavouriteMovies.TABLE_NAME, null, contentValues,SQLiteDatabase.CONFLICT_IGNORE);
+                long id = sqLiteDatabase.insertWithOnConflict(FavouritesContractClass.FavouriteMovies.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 if (id > 0)
                     returnUri = ContentUris.withAppendedId(FavouritesContractClass.FavouriteMovies.CONTENT_URI, id);
                 else
@@ -106,12 +108,11 @@ Uri returnUri = null;
                 throw new UnsupportedOperationException("Unknown uri" + uri);
         }
 
-        getContext().getContentResolver().notifyChange(uri,null);
+        getContext().getContentResolver().notifyChange(uri, null);
         return returnUri;
 
 
-        }
-
+    }
 
 
     @Override

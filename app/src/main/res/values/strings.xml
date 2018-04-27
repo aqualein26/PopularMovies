@@ -5,7 +5,7 @@
     <string name="positive_button">YES</string>
     <string name="negative_button">NO</string>
     <string name="sort_by_popularity">Most popular</string>
-    <string name="sort_by_favourite">Your favourites</string>
+    <string name="sort_by_favourite">Your favorites</string>
     <string name="sort_by_top_rated">Top rated</string>
     <string name="out_of_ten"> /10 </string>
     <string name="exit">Do you want to exit?</string>
@@ -15,7 +15,7 @@
     <string name="trailer1">Trailer 1</string>
     <string name="trailer2">Trailer 2</string>
     <string name="trailer3">Trailer 3</string>
-    <string name="favourite_title">Mark as Favourite</string>
+    <string name="favourite_title">Mark as Favorite</string>
     <string name="movie_saved_toast">Movie marked as favourite!</string>
 
 

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ParseData {
 
-    public static ArrayList<MoviesClass> getMoviesObject(String response){
+    public static ArrayList<MoviesClass> getMoviesObject(String response) {
 
 
         ArrayList<MoviesClass> moviesObjectList = new ArrayList<>();
@@ -26,7 +26,7 @@ public class ParseData {
         final String CODE = "cod";
         final String TAG = ParseData.class.getSimpleName();
 
-        if(response != null) {
+        if (response != null) {
             try {
                 JSONObject baseObject = new JSONObject(response);
                 if (baseObject.has(CODE)) {
@@ -39,10 +39,10 @@ public class ParseData {
                         case HttpURLConnection.HTTP_NOT_FOUND:
 
 
-                    /* Location invalid */
+                            /* Location invalid */
                             return null;
                         default:
-                    /* Server probably down */
+                            /* Server probably down */
 
                             return null;
                     }
@@ -56,7 +56,7 @@ public class ParseData {
                     String userRating = movieObject.getString("vote_average");
                     String releaseDate = movieObject.getString("release_date");
                     String[] year = releaseDate.split("-");
-                    String synopsis = movieObject.getString( "overview");
+                    String synopsis = movieObject.getString("overview");
                     String id = movieObject.getString("id");
 
                     movieDetails.setmPosterPath(posterPath);
@@ -65,7 +65,7 @@ public class ParseData {
                     movieDetails.setmTitle(movieTitle);
                     movieDetails.setmRating(userRating);
                     movieDetails.setmId(id);
-Log.i("rating ",userRating);
+                    Log.i("rating ", userRating);
                     moviesObjectList.add(movieDetails);
 
                 }
@@ -74,16 +74,9 @@ Log.i("rating ",userRating);
                 e.printStackTrace();
             }
 
-        } return moviesObjectList;
+        }
+        return moviesObjectList;
     }
-
-
-
-
-
-
-
-
 
 
 }
